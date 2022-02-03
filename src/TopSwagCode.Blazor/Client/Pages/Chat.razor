@@ -1,0 +1,159 @@
+﻿@page "/chat"
+@using Microsoft.AspNetCore.SignalR.Client
+@inject AuthenticationStateProvider GetAuthenticationStateAsync
+@inject NavigationManager NavigationManager
+@implements IAsyncDisposable
+
+<PageTitle>Chat</PageTitle>
+
+<Divider Orientation="left">Chat</Divider>
+<Row>
+    <Col Span="3">
+        <Input Disabled="isUsernameLocked" Placeholder="Username" @bind-Value="@username" >
+            <Prefix>
+                <Icon Type="user" />
+            </Prefix>
+        </Input>
+    </Col>
+    <Col Span="11">
+        <Input OnPressEnter="HandleEnter" Placeholder="Message" @bind-Value="@message" >
+            <AddOnAfter><Icon Type="wechat"></Icon></AddOnAfter>
+        </Input>
+    </Col>
+</Row>
+
+
+<AntList DataSource="@data" TItem="BasicItem">
+    <ListItem OnClick="()=>ItemClick(context.Title)">
+        <ListItemMeta Avatar="@context.Avatar" Description="@context.Description">
+            <TitleTemplate>
+                @context.Title
+            </TitleTemplate>
+        </ListItemMeta>
+    </ListItem>
+</AntList>
+
+@code {
+    private HubConnection? hubConnection;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var authstate = await GetAuthenticationStateAsync.GetAuthenticationStateAsync();
+        var user = authstate.User;
+        username = user.Identity?.Name;
+
+        if (!string.IsNullOrEmpty(username))
+        {
+            isUsernameLocked = true;
+        }
+        else
+        {
+            username = ToTinyUuid(Guid.NewGuid());
+        }
+
+        hubConnection = new HubConnectionBuilder()
+            .WithUrl(NavigationManager.ToAbsoluteUri("/chathub"))
+            .Build();
+
+        hubConnection.On<string, string>("ReceiveMessage", (user, message) =>
+        {
+            HandleMessage(new BasicItem
+            {
+                Title = user, 
+                Description = message,
+                Avatar = $"api/Identicon?name={user}&size=500",
+                CreatedAt = DateTimeOffset.UtcNow
+            });
+
+            StateHasChanged();
+        });
+
+        await hubConnection.StartAsync();
+    }
+
+    public string ToTinyUuid(Guid guid)
+    {
+        return Convert.ToBase64String(guid.ToByteArray())[0..^2]  // remove trailing == padding 
+            .Replace('+', '-')                          // escape (for filepath)
+            .Replace('/', '_');                         // escape (for filepath)
+    }
+
+    string username = string.Empty;
+    string message = string.Empty;
+    bool isUsernameLocked = false;
+
+    private async Task HandleEnter()
+    {
+        if (hubConnection is not null)
+        {
+            await hubConnection.SendAsync("SendMessage", username, message);
+            message = string.Empty;
+        }
+    }
+
+    void HandleMessage(BasicItem item)
+    {
+        data.Add(item);
+
+        data = data.OrderByDescending(x => (x.CreatedAt, x.Title)).Take(10).ToList();
+
+        message = string.Empty;
+    }
+
+    public class BasicItem
+    {
+        public string Title { get; set; }
+        public string Description { get; set; }
+        public string Avatar { get; set; }
+        public DateTimeOffset CreatedAt { get; set; }
+    }
+
+    public List<BasicItem> data = new List<BasicItem>
+    {
+        new BasicItem 
+        { 
+            Title = "Ant Design Title 1", 
+            Description = "Ant Design, a design language for background applications, is refined by Ant UED Team",
+            Avatar = "api/Identicon?name=Storm&size=500",
+            CreatedAt = DateTimeOffset.UtcNow
+        },
+        new BasicItem 
+        { 
+            Title = "Ant Design Title 2", 
+            Description = "Ant Design, a design language for background applications, is refined by Ant UED Team",
+            Avatar = "api/Identicon?name=Storm&size=500",
+            CreatedAt = DateTimeOffset.UtcNow
+        },
+        new BasicItem 
+        { 
+            Title = "Ant Design Title 3", 
+            Description = "Ant Design, a design language for background applications, is refined by Ant UED Team",
+            Avatar = "api/Identicon?name=Storm&size=500",
+            CreatedAt = DateTimeOffset.UtcNow
+        },
+        new BasicItem 
+        { 
+            Title = "Ant Design Title 4", 
+            Description = "Ant Design, a design language for background applications, is refined by Ant UED Team",
+            Avatar = "api/Identicon?name=Storm&size=500",
+            CreatedAt = DateTimeOffset.UtcNow
+        },
+
+    };
+
+    public void ItemClick(string title)
+    {
+        Console.WriteLine($"item was clicked: {title}");
+    }
+
+    public bool IsConnected =>
+        hubConnection?.State == HubConnectionState.Connected;
+
+    public async ValueTask DisposeAsync()
+    {
+        if (hubConnection is not null)
+        {
+            await hubConnection.DisposeAsync();
+        }
+    }
+}

@@ -1,0 +1,27 @@
+﻿@page "/counter"
+
+<PageTitle>Counter</PageTitle>
+
+<Divider Orientation="left">Counter</Divider>
+
+<p role="status">Current count: @currentCount</p>
+
+<Button OnClick="IncrementCount" Type="@ButtonType.Primary" Shape="@ButtonShape.Circle" Icon="@IconType.Outline.PlusCircle" />
+
+
+<Button OnClick="DecrementCount" Type="@ButtonType.Primary" Shape="@ButtonShape.Circle" Icon="@IconType.Outline.MinusCircle" />
+
+
+@code {
+    private int currentCount = 0;
+
+    private void IncrementCount()
+    {
+        currentCount++;
+    }
+
+    private void DecrementCount()
+    {
+        currentCount--;
+    }
+}

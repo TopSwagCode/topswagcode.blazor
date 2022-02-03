@@ -1,0 +1,116 @@
+﻿@page "/face-recognition"
+@using System.Security.Claims
+@using System.Linq
+@using System.Net.Http.Headers
+@using System.Text.Json
+@using TopSwagCode.Blazor.Shared
+@attribute [Authorize(Roles = "Admin")]
+@inject IHttpClientFactory ClientFactory
+@inject LocalHttpClient LocalClient
+@inject MessageService _message
+@inject AuthenticationStateProvider AuthenticationStateProvider
+
+
+<PageTitle>Face recognition</PageTitle>
+
+<Divider Orientation="left">Face recognition</Divider>
+
+
+    <Upload Action="api/facerecognition/test"
+            Name="files"
+            Drag
+            BeforeUpload="@testfunction"
+            Disabled="@IsDisabled"
+            OnChange="HandleChange">
+        <p class="ant-upload-drag-icon">
+            @if (IsDisabled)
+            {
+
+                <Icon Type="loading" Theme="outline"/>
+            }
+            else
+            {
+                <Icon Type="inbox"/>
+            }
+
+        </p>
+        <p class="ant-upload-text">Click or drag file to this area to upload</p>
+        <p class="ant-upload-hint">
+            Upload a image with a face and see if you get a hat :D
+        </p>
+
+    </Upload>
+
+    @if (!string.IsNullOrEmpty(testurl))
+    {
+        <Divider />
+
+        <img style="max-height:100%; max-width:100%;" Src="@testurl"/>
+    }
+
+
+
+
+
+@code {
+
+    bool testfunction(UploadFileItem file)
+    {
+        if (!file.IsPicture())
+        {
+            _message.Warning("Upload is not a image :( ");
+            return false;
+        }
+        long maxFileSize = 1024 * 1024 * 15;
+
+        if(file.Size > maxFileSize)
+        {
+            _message.Warning("Image is too big :( ");
+        }
+
+        IsDisabled = true;
+        _message.Info("Upload started");
+        testurl = file.ObjectURL;
+
+        return true;
+    }
+
+    List<UploadFileItem> fileList = new List<UploadFileItem>();
+
+    public class ResponseModel
+    {
+        public string name { get; set; }
+
+        public string status { get; set; }
+
+        public string url { get; set; }
+
+        public string thumbUrl { get; set; }
+    }
+
+    async Task HandleChange(UploadInfo fileinfo)
+    {
+        
+        if (fileinfo.File.State == UploadState.Success)
+        {
+            
+            await Task.Delay(2000);
+            IsDisabled = false;
+            _message.Success("YEAH!");
+            var result = fileinfo.File.GetResponse<ResponseModel>();
+            fileinfo.File.Url = result.url;
+            testurl = result.url;
+        }
+
+        if (fileinfo.File.State == UploadState.Uploading)
+        {
+            fileinfo.File.Url = fileinfo.File.ObjectURL;
+            testurl = fileinfo.File.Url;
+
+        }
+    }
+
+    string? testurl = "";
+    protected bool IsDisabled { get; set; }
+
+}

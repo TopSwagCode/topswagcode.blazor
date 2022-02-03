@@ -1,0 +1,99 @@
+﻿
+
+<Row style="display: contents" OnBreakpoint="HandleBreakpoint">
+<Menu Theme="MenuTheme.Dark" Mode="menuMode" DefaultSelectedKeys=@(new[] {"1"})>
+    
+    @if (BreakpointType.Xxl >= current)
+    {
+        <Drawer 
+            BodyStyle="@("background-color: #c3242c; overflow: hidden;")" 
+            Visible="@visible" 
+            Placement="@placement" 
+            Closable="false"
+            OnClose="_ => close()">
+            <MenuItem RouterLink="/" Key="1">Home</MenuItem>
+            <MenuItem RouterLink="/identicon" Key="2">Identicon</MenuItem>
+            <MenuItem RouterLink="/counter" Key="3">Counter</MenuItem>
+            <MenuItem RouterLink="/fetchdata" Key="4">Fetch data</MenuItem>
+            <MenuItem RouterLink="/cv" Key="5">Curriculum Vitae</MenuItem>
+            <MenuItem RouterLink="/boxboxbox" Key="6">BoxBoxBox</MenuItem>
+            <MenuItem RouterLink="/chat" Key="7">Chat</MenuItem>
+            <AuthorizeView>
+                <Authorized>
+                    <MenuItem RouterLink="/claims" Key="8">Claims</MenuItem>
+                </Authorized>
+            </AuthorizeView>
+            <AuthorizeView Roles="Admin">
+                <Authorized>
+                    <MenuItem RouterLink="/face-recognition" Key="9">Face Recognition</MenuItem>
+                    <MenuItem RouterLink="/serverless" Key="10">Serverless</MenuItem>
+                    <MenuItem RouterLink="/admin" Key="11">Admin</MenuItem>
+                </Authorized>
+            </AuthorizeView>
+        </Drawer>
+        <Button Type="@ButtonType.Primary" Shape="@ButtonShape.Round" @onclick="_ => open()" Icon="@IconType.Outline.Menu"></Button>
+    }
+    else
+    {
+        <MenuItem RouterLink="/" Key="1">Home</MenuItem>
+        <MenuItem RouterLink="/identicon" Key="2">Identicon</MenuItem>
+        <MenuItem RouterLink="/counter" Key="3">Counter</MenuItem>
+        <MenuItem RouterLink="/fetchdata" Key="4">Fetch data</MenuItem>
+        <MenuItem RouterLink="/cv" Key="5">Curriculum Vitae</MenuItem>
+        <MenuItem RouterLink="/boxboxbox" Key="6">BoxBoxBox</MenuItem>
+        <MenuItem RouterLink="/chat" Key="7">Chat</MenuItem>
+        <AuthorizeView>
+            <Authorized>
+                <MenuItem RouterLink="/claims" Key="8">Claims</MenuItem>
+            </Authorized>
+        </AuthorizeView>
+        <AuthorizeView Roles="Admin">
+            <Authorized>
+                <MenuItem RouterLink="/face-recognition" Key="9">Face Recognition</MenuItem>
+                <MenuItem RouterLink="/serverless" Key="10">Serverless</MenuItem>
+                <MenuItem RouterLink="/admin" Key="11">Admin</MenuItem>
+            </Authorized>
+        </AuthorizeView>
+        
+    }
+    <LoginDisplay/>
+</Menu>
+</Row>
+
+@code{
+
+    string placement = "top";
+
+    bool visible = false;
+
+    void open()
+    {
+        this.visible = true;
+    }
+
+    void close()
+    {
+        this.visible = false;
+    }
+
+    BreakpointType[] types = new[] { BreakpointType.Xxl, BreakpointType.Xl, BreakpointType.Lg, BreakpointType.Md, BreakpointType.Sm, BreakpointType.Xs };
+
+    BreakpointType current;
+    MenuMode menuMode = MenuMode.Horizontal;
+
+    void HandleBreakpoint(BreakpointType breakpoint)
+    {
+        current = breakpoint;
+
+        if(BreakpointType.Xl >= current)
+        {
+            menuMode = MenuMode.Horizontal;
+        }
+        else
+        {
+            menuMode = MenuMode.Horizontal;
+        }
+    }
+
+    // TODO move menu items to template below.
+}

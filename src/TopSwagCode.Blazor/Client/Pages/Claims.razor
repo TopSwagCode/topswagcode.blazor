@@ -1,0 +1,54 @@
+﻿@page "/claims"
+@using System.Security.Claims
+@inject AuthenticationStateProvider AuthenticationStateProvider
+
+<PageTitle>User Claims</PageTitle>
+<section class="mb-4">
+   
+    <Divider Orientation="left">User claims</Divider>
+
+    @if (_claims.Count() > 0)
+    {
+        <AntList Bordered DataSource="@_claims">
+            <ChildContent Context="item">
+                <ListItem>
+                    <span><Text Code>@item.Type</Text></span>@item.Value
+                </ListItem>
+            </ChildContent>
+        </AntList>
+    }
+    else
+    {
+        <Empty Simple/>
+    }
+
+ </section>
+
+@code {
+    private string _authMessage;       
+    private string _userId;
+    private IEnumerable<Claim> _claims = Enumerable.Empty<Claim>();
+
+    protected override async Task OnParametersSetAsync()
+    {
+        await GetClaimsPrincipalData();
+        await base.OnParametersSetAsync();
+    }
+
+    private async Task GetClaimsPrincipalData()
+    {
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+        
+        if (user.Identity.IsAuthenticated)
+        {
+            _authMessage = $"{user.Identity.Name} is authenticated.";
+            _claims = user.Claims;
+            _userId = $"User Id: {user.FindFirst(c => c.Type == "sub")?.Value}";
+        }
+        else
+        {
+            _authMessage = "The user is NOT authenticated.";
+        }
+    }
+}

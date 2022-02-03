@@ -1,0 +1,21 @@
+{
+  "name": "TopSwagCode.Dev",
+  "short_name": "TopSwagCode",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#c3242c",
+  "prefer_related_applications": false,
+  "icons": [
+    {
+      "src": "icon512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    },
+    {
+      "src": "icon192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    }
+  ]
+}

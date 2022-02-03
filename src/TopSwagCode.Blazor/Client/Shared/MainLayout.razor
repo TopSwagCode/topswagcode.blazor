@@ -1,0 +1,28 @@
+﻿@inherits LayoutComponentBase
+@inject IVersionService VersionService
+
+<Layout style="min-height: 100vh;" Class="layout page">
+    <Header>
+        <div class="logo" />
+        <NavMenu />
+    </Header>
+    <Content Style="padding: 0 50px; overflow-wrap: break-word;">
+        <BadgeRibbon Text="@("Version: " + version.ToString())">
+            <div class="site-layout-content">@Body</div>
+        </BadgeRibbon>
+    </Content>
+    <Footer Style="text-align: center;">
+        <Image Width="100" Src="https://topswagcode.com/assets/banner-logo.png" />
+    </Footer>
+</Layout>
+
+@code
+{
+    // Assembly.
+    string version = string.Empty;
+
+    protected override async Task OnInitializedAsync()  
+    {  
+        version = VersionService.GetVersion();
+    }  
+}

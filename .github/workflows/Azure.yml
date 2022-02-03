@@ -1,0 +1,53 @@
+# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
+# More GitHub Actions for Azure: https://github.com/Azure/actions
+
+name: Build and deploy ASP.Net Core app to Azure Web App
+
+on:
+  push:
+    branches:
+      - master
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up .NET Core
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: '6.0.x'
+          include-prerelease: true
+
+      - name: Build with dotnet
+        run: dotnet build ./src /p:Version="1.0.5" /p:InformationalVersion="1.0.5.${{ github.run_number }}" --configuration Release
+
+      - name: dotnet publish
+        run: dotnet publish ./src /p:Version="1.0.5" /p:InformationalVersion="1.0.5.${{ github.run_number }}" -c Release -o ${{env.DOTNET_ROOT}}/myapp
+
+      - name: Upload artifact for deployment job
+        uses: actions/upload-artifact@v2
+        with:
+          name: .net-app
+          path: ${{env.DOTNET_ROOT}}/myapp
+
+      - name: Variable substitution
+        uses: microsoft/variable-substitution@v1 
+        with:
+          files: '${{env.DOTNET_ROOT}}/myapp/appsettings.json'
+        env:
+          ComputerVision.SubscriptionKey: ${{ secrets.ComputerVisionSubscriptionKey }}
+          ComputerVision.Endpoint: ${{ secrets.ComputerVisionEndpoint }}
+
+      - name: Deploy to Azure Web App
+        id: deploy-to-webapp
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: 'TopSwagCodeBlazorServer20211123214132'
+          slot-name: 'Production'
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_13EC3E070CE645AAA558A8849406A7A6 }}
+          package: ${{env.DOTNET_ROOT}}/myapp
+

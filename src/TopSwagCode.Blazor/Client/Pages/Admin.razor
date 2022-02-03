@@ -1,0 +1,37 @@
+﻿@page "/admin"
+@using System.Security.Claims
+@using TopSwagCode.Blazor.Shared
+@attribute [Authorize(Roles = "Admin")]
+@inject LocalHttpClient LocalClient
+@inject AuthenticationStateProvider AuthenticationStateProvider
+
+<PageTitle>Admin Page</PageTitle>
+
+<Divider Orientation="left">Admin page</Divider>
+
+@if (welcomeMessage == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <h2>
+        @welcomeMessage.Message
+    </h2>
+}
+
+@code {
+    private AdminWelcomeMessage welcomeMessage;       
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            welcomeMessage = await LocalClient.HttpClient.GetFromJsonAsync<AdminWelcomeMessage>("api/admin");
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+    }
+}

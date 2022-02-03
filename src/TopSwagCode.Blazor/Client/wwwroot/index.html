@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>TopSwagCode.Blazor</title>
+    <base href="/" />
+    <!--<link href="_content/AntDesign/css/ant-design-blazor.css" rel="stylesheet" />-->
+    <link href="css/app.css" rel="stylesheet" />
+
+    <link href="TopSwagCode.Blazor.Client.styles.css" rel="stylesheet" />
+    <link href="manifest.json" rel="manifest" />
+    <link rel="apple-touch-icon" sizes="512x512" href="icon512.png" />
+    <link rel="apple-touch-icon" sizes="192x192" href="icon192.png" />
+    <link rel="shortcut icon" type="image/png" href="/favicon.png">
+    <style>
+        .loaderimg {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 229px;
+            height: 139px;
+            margin: -135px 0 0 -70px;
+            -webkit-animation: spin 2s linear infinite;
+            -moz-animation: spin 2s linear infinite;
+            animation: spin 2s linear infinite;
+        }
+
+        @-moz-keyframes spin {
+            100% {
+                -moz-transform: rotate(360deg);
+            }
+        }
+
+        @-webkit-keyframes spin {
+            100% {
+                -webkit-transform: rotate(360deg);
+            }
+        }
+
+        @keyframes spin {
+            100% {
+                -webkit-transform: rotate(360deg);
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+    <script src="_content/AntDesign/js/ant-design-blazor.js"></script>
+</head>
+
+<body>
+    <div id="app"><img class="loaderimg" src="https://topswagcode.com/assets/banner-logo.png"></div>
+
+    <script src="_content/Microsoft.AspNetCore.Components.WebAssembly.Authentication/AuthenticationService.js"></script>
+    <script src="_framework/blazor.webassembly.js"></script>
+    <script>navigator.serviceWorker.register('service-worker.js');</script>
+</body>
+
+</html>

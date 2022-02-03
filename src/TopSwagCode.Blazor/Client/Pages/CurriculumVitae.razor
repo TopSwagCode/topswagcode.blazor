@@ -1,0 +1,120 @@
+﻿@page "/cv"
+
+<PageTitle>Curriculum Vitae</PageTitle>
+
+<Divider Orientation="left">Curriculum Vitae</Divider>
+
+<b>Name:</b> Joshua Jesper Krægpøth Ryder <br/>
+<b>Adress:</b> Ahornvej 3. <br/>
+<b>ZipCode:</b> 8751 <br/>
+<b>City:</b> Gedved <br/>
+<b>Tel.:</b> 0045 20 49 08 59 <br/>
+<b>E-mail:</b> josh@topswagcode.com <br/>
+<b>Born:</b> 17/02/1987 <br/>
+
+
+<Divider Orientation="left">Work</Divider>
+
+<Timeline Mode="@TimelineMode.Alternate"  >
+    <TimelineItem Color="green">2021 - Now: Mærsk</TimelineItem>
+    <TimelineItem>2019 - 2021: Brølstærk</TimelineItem>
+    <TimelineItem Color="green">2016 - 2019: First Agenda</TimelineItem>
+    <TimelineItem Dot="dotTemplate"> 2016: Wallmob  </TimelineItem>
+    <TimelineItem Color="red">2014-2016: Stibo</TimelineItem>
+    <TimelineItem>2014 : Ebay (Bachelor assignment)</TimelineItem>
+    <TimelineItem Dot="dotTemplate">2011-2013 : Novicell</TimelineItem>
+    <TimelineItem Dot="dotTemplate">2003-2006 : Fjord Line</TimelineItem>
+</Timeline>
+
+<Divider Orientation="left">School</Divider>
+
+<Timeline Mode="@TimelineMode.Alternate"  >
+    <TimelineItem>2016: Master module. P2P networks, Scalable web and docker</TimelineItem>
+    <TimelineItem>2012-2014: Bachelor in Software development at Business Academy Aarhus</TimelineItem>
+    <TimelineItem Color="green">2008-2011: AP in Software development at Business Academy Aarhus</TimelineItem>
+    <TimelineItem Dot="dotTemplate"> 2006-2007: Computer Science at Århus university (Not completd) </TimelineItem>
+    <TimelineItem Color="red">2003-2006: Business College. http://www.eucnordvest.dk</TimelineItem>
+ 
+</Timeline>
+
+<Divider Orientation="left">Results</Divider>
+
+<ul>
+<li>
+    Updated AGF homepage from ASP to ASP.NET with umbraco on top, and transfer 10 years of data.
+</li>
+<li>
+    Development of new module for NN Markedsdata, enabling search on estate for companies. And ”standin” project lead during 2½ month on the project.
+</li>
+<li>
+    Development of new checkout flow for Punkt1.dk. The old checkout flow had to many step and many customers didn’t complete their order. The project was deployed in under a week and result could be seen instantly.
+</li>
+<li>
+    Development of Kosan Gas webshop, and associated business logic matrix.
+</li>
+<li>
+    Getting Stibo to change to jMeter saving them alot of money and making performance more easy to approach, by persiting in talking about it and making demo’s of it in my spare time.
+</li>
+<li>
+    Getting Stibo to change to jMeter saving them alot of money and making performance more easy to approach, by persiting in talking about it and making demo’s of it in my spare time.
+</li>
+<li>
+    Creating a new Microservice overnight in spare time, to implement wished feature that users had asked for, but had not been prioritized. Showing that going over to microservices let us work more agile and create new services without interfering with prior code base. All code and deployment setup complete during one night of coding.
+</li>
+<li>
+    Reducing page load time from minutes to few seconds and at the same time reducing response size from 10mb to 90kb while keeping all the same data. This was achieved by going from SQL database to timeseries database and going from a flat response model to tree model removing duplicate data.
+</li>
+</ul>
+
+<Divider Orientation="left">Skills</Divider>
+
+<Tag Color="#c3242c">C#</Tag>
+<Tag Color="#c3242c">AspNetCore</Tag>
+<Tag Color="#c3242c">Dotnet Core</Tag>
+<Tag Color="#c3242c">Docker</Tag>
+<Tag Color="#c3242c">Message Queues</Tag>
+<Tag Color="#c3242c">Blazor</Tag>
+<Tag Color="#c3242c">Razor</Tag>
+<Tag Color="#c3242c">EF Core</Tag>
+<Tag Color="#c3242c">SQL</Tag>
+<Tag Color="#c3242c">Document databases</Tag>
+<Tag Color="#c3242c">Time series databases</Tag>
+<Tag Color="#c3242c">Java</Tag>
+<Tag Color="#c3242c">Javascript</Tag>
+<Tag Color="#c3242c">AWS</Tag>
+<Tag Color="#c3242c">Azure</Tag>
+<Tag Color="#c3242c">GIT</Tag>
+
+<Divider Orientation="left">Buzz Words</Divider>
+
+<Tag Color="#c3242c">Scrum</Tag>
+<Tag Color="#c3242c">eXtreme Programming</Tag>
+<Tag Color="#c3242c">Agile</Tag>
+<Tag Color="#c3242c">Lean</Tag>
+<Tag Color="#c3242c">TDD</Tag>
+<Tag Color="#c3242c">BDD</Tag>
+<Tag Color="#c3242c">CI/CD</Tag>
+<Tag Color="#c3242c">GIT</Tag>
+<Tag Color="#c3242c">DevOps</Tag>
+<Tag Color="#c3242c">Code enthusiast</Tag>
+
+<Divider Orientation="left">Language competence</Divider>
+
+I speak and write Danish fluently <br />
+I speak and write English fluently
+
+<Divider Orientation="left">Other</Divider>
+
+2012-2014 Diploma for being a Learning Assistant in innovations process “Eksperts in teams” at Business Academy Aarhus.
+
+2006-2015 I worked as voluteer at Kidney Association’s youth department. During the years my task had grown including going to NNS in Oslo and CEAPIR in Zürich
+
+
+
+
+@code {
+    RenderFragment dotTemplate =
+    @<Template>
+        <Icon Type="clock-circle" Style="font-size: 16px;" />
+    </Template>;
+ }

@@ -1,0 +1,37 @@
+﻿@page "/serverless"
+@using System.Security.Claims
+@using TopSwagCode.Blazor.Shared
+@attribute [Authorize(Roles = "Admin")]
+@inject ServerlessHttpClient ServerlessClient
+@inject AuthenticationStateProvider AuthenticationStateProvider
+
+<PageTitle>Serverless Page</PageTitle>
+
+<Divider Orientation="left">Serverless page</Divider>
+
+@if (userInfo == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <h2>
+        @userInfo
+    </h2>
+}
+
+@code {
+    private string userInfo;       
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            userInfo = await ServerlessClient.GetUserInfoAsync();
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+    }
+}

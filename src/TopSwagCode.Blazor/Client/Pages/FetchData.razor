@@ -1,0 +1,90 @@
+﻿@page "/fetchdata"
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@using TopSwagCode.Blazor.Shared
+@using System.ComponentModel
+@using AntDesign.TableModels
+@inject MessageService _message
+@attribute [Authorize]
+@inject LocalHttpClient LocalClient
+
+<PageTitle>Weather forecast</PageTitle>
+
+<Divider Orientation="left">Weather forecasts</Divider>
+
+<p>This component demonstrates fetching data from the server. There is a hardcoded delay server side, so we can see loading animation.</p>
+@if(_loading)
+{
+    <Skeleton Loading="@_loading" Active>
+        </Skeleton>
+        <Skeleton Loading="@_loading" Active>
+    </Skeleton>
+}
+else {
+    
+    <Table TItem="WeatherForecast" DataSource="@forecasts" OnRowClick="OnRowClick">
+        <Column @bind-Field="@context.Date">
+            <a>@context.Date.ToShortDateString()</a>
+        </Column>
+        <Column @bind-Field="@context.TemperatureC">
+            <TitleTemplate>
+                <span> <Icon Type="environment" /> Temperature C </span>
+            </TitleTemplate>
+        </Column>
+        <Column @bind-Field="@context.Summary">
+            @{
+                var color = context.TemperatureC > 15 ? "volcano" : "geekblue";
+                <Tag Color="@color">@context.Summary</Tag>
+            }
+        </Column>
+        <ActionColumn Title="Action">
+            <Space Size=@("middle")>
+                <SpaceItem>
+                    <Tooltip Title="@IconType.Outline.Edit">
+                        <Button OnClick="EditClicked" Type="@ButtonType.Primary" Shape="@ButtonShape.Circle" Icon="@IconType.Outline.Edit" />
+                    </Tooltip>
+                </SpaceItem>
+                <SpaceItem>
+                    <Tooltip Title="@IconType.Outline.Delete">
+                        <Button OnClick="DeleteClicked" Type="@ButtonType.Primary" Shape="@ButtonShape.Circle" Icon="@IconType.Outline.Delete" />
+                    </Tooltip>
+                </SpaceItem>
+            </Space>
+        </ActionColumn>
+    </Table>
+ 
+}
+
+
+
+@code {
+    private WeatherForecast[]? forecasts;
+    private bool _loading = true;
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            forecasts = await LocalClient.HttpClient.GetFromJsonAsync<WeatherForecast[]>("api/WeatherForecast");
+            _loading = false;
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+    }
+
+    void EditClicked()
+    {
+        _message.Info("Lets edit some data! ");
+    }
+
+    void DeleteClicked()
+    {
+        _message.Warning("Please dont delete me :( ");
+    }
+
+    void OnRowClick(RowData<WeatherForecast> row)
+    {
+        Console.WriteLine($"row {row.Data.Date} was clicked.");
+    }
+}

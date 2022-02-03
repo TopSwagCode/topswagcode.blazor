@@ -1,0 +1,67 @@
+﻿@page "/identicon"
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@using TopSwagCode.Blazor.Shared
+@using System.ComponentModel
+@using AntDesign.TableModels
+
+@inject HttpClient Http
+
+<PageTitle>Weather forecast</PageTitle>
+
+<Divider Orientation="left">Identicon</Divider>
+
+<Row>
+    <Col Span="24">
+        <Text>
+            An Identicon is a visual representation of a hash value, usually of an IP address, that serves to identify a user of a computer system as a form of avatar while protecting the users’ privacy. The original Identicon was a 9-block graphic, and the representation has been extended to other graphic forms by third parties.
+
+            I created this small services as a proof of concept for work, where we use users calenders and attendees to improve meetings with our awesome machine learning. With identicons we could create a unique profile picture for all users (even the ones that doesn’t use our app) and let users change it when they log in the first time.
+
+            Try to create your own below here:
+        </Text>
+    </Col>   
+</Row>
+<Row>
+    <Col Span="8"></Col>
+    <Col Style="text-align:center" Span="8">
+        <Image PreviewSrc="@_identiconUrl" Src="@_identiconPreviewUrl"></Image>
+    </Col>
+    <Col Span="8"></Col>
+</Row>
+<Row>
+    <Col Span="8"></Col>
+    <Col Style="text-align:center" Span="8">
+        <Input OnChange="(string v) => { InputChanged(); }" Placeholder="Enter identicon name" @bind-Value="@_identicon"  />
+    </Col>
+    <Col Span="8"></Col>
+</Row>
+
+
+
+    
+
+
+@code {
+    private string _identicon;
+    private int _identiconSize;
+    private int _identiconPreviewSize;
+    private string _identiconUrl = $"api/Identicon?name=Storm&size=500";
+    private string _identiconPreviewUrl = $"api/Identicon?name=Storm&size=250";
+
+    protected override async Task OnInitializedAsync()
+    {
+        _identicon = "Storm";
+
+        _identiconSize = 500;
+        _identiconPreviewSize = 250;
+    }
+
+    void InputChanged()
+    {
+        
+
+        _identiconUrl = $"api/Identicon?name={_identicon}&size={_identiconSize}";
+        _identiconPreviewUrl = $"api/Identicon?name={_identicon}&size={_identiconPreviewSize}";
+    }
+}

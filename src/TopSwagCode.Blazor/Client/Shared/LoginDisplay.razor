@@ -1,0 +1,41 @@
+﻿@using Microsoft.AspNetCore.Components.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+
+@inject NavigationManager Navigation
+@inject SignOutSessionStateManager SignOutManager
+
+<div style="float: right; display: flex">
+    <AuthorizeView>
+        <Authorized>
+            <Space Size="spaceSize">
+                <SpaceItem>
+                    Hello, @context.User.Identity?.Name!
+                </SpaceItem>
+                <SpaceItem>
+                    <Button Type="@ButtonType.Primary" Shape="@ButtonShape.Circle" Icon="@IconType.Outline.Logout" @onclick="BeginLogout"></Button>
+                </SpaceItem>
+            </Space>      
+        </Authorized>
+        <NotAuthorized>
+            <Space Size="spaceSize">
+                <SpaceItem>
+                    <Button Type="@ButtonType.Primary" Shape="@ButtonShape.Circle" Icon="@IconType.Outline.Login" @onclick="BeginLogin"></Button>
+                </SpaceItem>
+            </Space>  
+        </NotAuthorized>
+    </AuthorizeView>
+</div>
+@code{
+    private string spaceSize = "middle";
+
+    private async Task BeginLogout(MouseEventArgs args)
+    {
+        await SignOutManager.SetSignOutState();
+        Navigation.NavigateTo("authentication/logout");
+    }
+
+    private async Task BeginLogin(MouseEventArgs args)
+    {
+        Navigation.NavigateTo("authentication/login");
+    }
+}
