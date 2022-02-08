@@ -36,11 +36,8 @@ namespace Serverless.Azure
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)] HttpRequest req,
             ILogger log)
         {
-
-            // Authenticate the user
             var authResult = await _apiAuthentication.AuthenticateAsync(req.Headers);
 
-            // Check the authentication result
             if (authResult.Failed)
             {
                 return new ForbidResult(authenticationScheme: "Bearer");
