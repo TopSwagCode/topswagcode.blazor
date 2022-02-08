@@ -47,10 +47,8 @@ namespace Serverless.Azure
             }
 
             var claims = authResult.User.Claims.Select(x => x.Value).ToList();
-            // User is authenticated. Proceed with function logic
-            string name = authResult.User.Identity.Name; // This gives us the unique user name
-
-            string responseMessage = $"Hello, {name}. This HTTP triggered function executed successfully.";
+            
+            claims.Add("Some random claims just to show it auto updates :D");
 
             return new OkObjectResult(claims);
         }
