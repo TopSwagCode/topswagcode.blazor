@@ -8,7 +8,7 @@ on:
     branches:
       - master
     paths:
-      - 'src/TopSwagCode.Blazor/Serverless.Azure'
+      - 'src/TopSwagCode.Blazor/Serverless.Azure/**'
   workflow_dispatch:
 
 env:

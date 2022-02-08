@@ -8,9 +8,9 @@ on:
     branches:
       - master
     paths:
-      - 'src/TopSwagCode.Blazor/Client'
-      - 'src/TopSwagCode.Blazor/Server'
-      - 'src/TopSwagCode.Blazor/Shared'
+      - 'src/TopSwagCode.Blazor/Client/**'
+      - 'src/TopSwagCode.Blazor/Server/**'
+      - 'src/TopSwagCode.Blazor/Shared/**'
   workflow_dispatch:
 
 jobs:
