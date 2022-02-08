@@ -3,11 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31912.275
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TopSwagCode.Blazor.Server", "TopSwagCode.Blazor\Server\TopSwagCode.Blazor.Server.csproj", "{811F2DCB-DA77-48CD-B307-97BF8680B8BF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TopSwagCode.Blazor.Server", "TopSwagCode.Blazor\Server\TopSwagCode.Blazor.Server.csproj", "{811F2DCB-DA77-48CD-B307-97BF8680B8BF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TopSwagCode.Blazor.Client", "TopSwagCode.Blazor\Client\TopSwagCode.Blazor.Client.csproj", "{2169B2F7-E350-4318-B8A6-F4F3C37E2E87}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TopSwagCode.Blazor.Client", "TopSwagCode.Blazor\Client\TopSwagCode.Blazor.Client.csproj", "{2169B2F7-E350-4318-B8A6-F4F3C37E2E87}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TopSwagCode.Blazor.Shared", "TopSwagCode.Blazor\Shared\TopSwagCode.Blazor.Shared.csproj", "{C659E624-5B05-493F-B1F2-0497CF2148BF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TopSwagCode.Blazor.Shared", "TopSwagCode.Blazor\Shared\TopSwagCode.Blazor.Shared.csproj", "{C659E624-5B05-493F-B1F2-0497CF2148BF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Serverless.Azure", "TopSwagCode.Blazor\Serverless.Azure\Serverless.Azure.csproj", "{9BBDAEAE-8AE4-4B81-B6D8-8A2AAC7F1227}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{C659E624-5B05-493F-B1F2-0497CF2148BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C659E624-5B05-493F-B1F2-0497CF2148BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C659E624-5B05-493F-B1F2-0497CF2148BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9BBDAEAE-8AE4-4B81-B6D8-8A2AAC7F1227}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9BBDAEAE-8AE4-4B81-B6D8-8A2AAC7F1227}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9BBDAEAE-8AE4-4B81-B6D8-8A2AAC7F1227}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9BBDAEAE-8AE4-4B81-B6D8-8A2AAC7F1227}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
