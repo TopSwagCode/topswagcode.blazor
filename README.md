@@ -13,3 +13,12 @@ A small project I have been working on for playing around with everything dotnet
 * Azure cognitive services (face recognition)
 
 Some of the paid services has been put behind Admin user role protection to keep hosting costs low :)
+
+# Roadmap
+
+* Quicker build time. (Don't rebuild on publish.)
+* Better readme :D
+* Add ref from shared to serverless for code reuse
+* Add Postgres database
+* Maybe some AI. 
+* Whatever crosses my mind.
