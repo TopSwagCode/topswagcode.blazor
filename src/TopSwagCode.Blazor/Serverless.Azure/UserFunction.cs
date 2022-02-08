@@ -48,8 +48,6 @@ namespace Serverless.Azure
 
             var claims = authResult.User.Claims.Select(x => x.Value).ToList();
             
-            claims.Add("Some random claims just to show it auto updates :D");
-
             return new OkObjectResult(claims);
         }
     }
