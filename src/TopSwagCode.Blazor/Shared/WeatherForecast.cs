@@ -17,6 +17,8 @@ namespace TopSwagCode.Blazor.Shared
 
     public record AdminWelcomeMessage(string Message);
 
+    public record ScrumTeamMember(Guid Uid, string Name);
+
     public class UploadResult
     {
         public bool Uploaded { get; set; }

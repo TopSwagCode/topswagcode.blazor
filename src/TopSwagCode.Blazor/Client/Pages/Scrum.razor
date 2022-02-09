@@ -1,0 +1,89 @@
+﻿@page "/scrum"
+@using System.Security.Claims
+@using TopSwagCode.Blazor.Shared
+@attribute [Authorize(Roles = "Admin")]
+@inject LocalHttpClient LocalClient
+@inject AuthenticationStateProvider AuthenticationStateProvider
+
+<PageTitle>Scrum Page</PageTitle>
+
+<Divider Orientation="left">Scrum page</Divider>
+
+
+<Transfer DataSource="dataSource"
+          TargetKeys="targetKeys.ToArray()"
+          ShowSearch="true"
+          SelectedKeys="selectedKeys"
+          Titles="titles"
+          OnChange="OnChange"
+          OnSearch="OnSearch"
+          OnScroll="OnScroll"
+          OnSelectChange="OnSelectChange"
+          Style="width:300px;height:300px;">
+</Transfer>
+
+
+@code {
+    private List<TransferItem> dataSource = new List<TransferItem>();
+    private List<string> targetKeys = new List<string>();
+    private string[] selectedKeys = Array.Empty<string>();
+    private string[] titles = { "Team", "Attendee" };
+    private bool Disabled = false;     
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            var teamMembers = await LocalClient.HttpClient.GetFromJsonAsync<ScrumTeamMember[]>("api/scrum/");
+
+            targetKeys.AddRange(teamMembers.Select(x => x.Uid.ToString()));
+
+            dataSource.AddRange(teamMembers.Select(x => new TransferItem()
+            {
+                Description = "",
+                Title = x.Name,
+                Key = x.Uid.ToString(),
+            }));
+
+            //_loading = false;
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+
+        StateHasChanged();
+        base.OnInitialized();
+    }
+
+    private OneOf.OneOf<string, RenderFragment> Render(TransferItem item)
+    {
+        //return new RenderFragment(buildTree);
+        //return $"{item.Title} - {item.Description}";
+        return $"{item.Title}";
+    }
+
+    private void OnChange(TransferChangeArgs e)
+    {
+        Console.WriteLine(e.Direction);
+        Console.WriteLine($"MoveKeys:{string.Join(',', e.MoveKeys)}");
+        Console.WriteLine($"TargetKeys:{string.Join(',', e.TargetKeys)}");
+    }
+
+    private void OnSearch(TransferSearchArgs e)
+    {
+        Console.WriteLine(e.Direction);
+        Console.WriteLine(e.Value);
+    }
+
+    private void OnScroll(TransferScrollArgs e)
+    {
+        Console.WriteLine(e.Direction);
+    }
+
+    private void OnSelectChange(TransferSelectChangeArgs e)
+    {
+        Console.WriteLine($"SourceSelectedKeys:{string.Join(',', e.SourceSelectedKeys)}");
+        Console.WriteLine($"TargetSelectedKeys:{string.Join(',', e.TargetSelectedKeys)}");
+    }
+}
