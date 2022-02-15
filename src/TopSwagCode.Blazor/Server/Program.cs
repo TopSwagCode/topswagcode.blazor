@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.ResponseCompression;
@@ -6,6 +7,27 @@ using TopSwagCode.Blazor.Server.Hubs;
 using TopSwagCode.Blazor.Server.Services;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.WebHost.UseSentry(options =>
+{
+    
+    if (builder.Environment.IsDevelopment())
+    {
+        options.Environment = "development";
+        // Set TracesSampleRate to 1.0 to capture 100% of transactions for performance monitoring.
+        // We recommend adjusting this value in production.
+        options.TracesSampleRate = 1.0;
+    }
+    else
+    {
+        options.Environment = "prod";
+        // Set TracesSampleRate to 1.0 to capture 100% of transactions for performance monitoring.
+        // We recommend adjusting this value in production.
+        options.TracesSampleRate = 1.0;
+    }
+
+    
+});
 
 // Add services to the container.
 builder.Services.AddSignalR();
@@ -28,7 +50,7 @@ builder.Services.AddAuthentication(options =>
 });
 
 builder.Services.Configure<ComputerVisionOptions>(
-    builder.Configuration.GetSection(ComputerVisionOptions.Position));
+builder.Configuration.GetSection(ComputerVisionOptions.Position));
 
 builder.Services.AddScoped<IComputerVisionService, ComputerVisionService>();
 
@@ -56,6 +78,8 @@ app.UseBlazorFrameworkFiles();
 app.UseStaticFiles();
 
 app.UseRouting();
+app.UseSentryTracing();
+
 
 app.UseAuthentication();
 app.UseAuthorization();

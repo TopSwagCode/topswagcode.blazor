@@ -11,6 +11,7 @@
   <ItemGroup>
     <PackageReference Include="Jdenticon-net" Version="3.1.2" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="6.0.0" />
+    <PackageReference Include="Sentry.AspNetCore" Version="3.14.0" />
   </ItemGroup>
 
   <ItemGroup>

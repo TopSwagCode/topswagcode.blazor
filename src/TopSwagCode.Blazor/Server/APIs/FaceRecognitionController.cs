@@ -16,12 +16,14 @@ namespace TopSwagCode.Blazor.Server.Controllers
         private readonly IWebHostEnvironment _webHostEnvironment;
         private readonly ILogger<FaceRecognitionController> _logger;
         private readonly IComputerVisionService _computerVisionService;
+        private readonly IHub _sentryHub;
 
-        public FaceRecognitionController(IWebHostEnvironment webHostEnvironment, ILogger<FaceRecognitionController> logger, IComputerVisionService computerVisionService)
+        public FaceRecognitionController(IWebHostEnvironment webHostEnvironment, ILogger<FaceRecognitionController> logger, IComputerVisionService computerVisionService, IHub sentryHub)
         {
             _webHostEnvironment = webHostEnvironment;
             _logger = logger;
             _computerVisionService = computerVisionService;
+            _sentryHub = sentryHub;
         }
 
         [HttpPost]
