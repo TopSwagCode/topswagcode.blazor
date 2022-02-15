@@ -45,7 +45,7 @@ jobs:
         env:
           ComputerVision.SubscriptionKey: ${{ secrets.ComputerVisionSubscriptionKey }}
           ComputerVision.Endpoint: ${{ secrets.ComputerVisionEndpoint }}
-          Sentry.Dsn: ${{ secrets.SentryDns }}
+          Sentry.Dsn: ${{ secrets.SentryDsn }}
 
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
