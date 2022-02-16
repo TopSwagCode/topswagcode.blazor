@@ -19,4 +19,3 @@ Some of the paid services has been put behind Admin user role protection to keep
 * Add Postgres database
 * Maybe some AI. 
 * Whatever crosses my mind.
-* Maybe blogpost / youtube video covering this repository for others to learn from.
