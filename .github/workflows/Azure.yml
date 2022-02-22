@@ -27,10 +27,10 @@ jobs:
           include-prerelease: true
 
       - name: Build with dotnet
-        run: dotnet build ./src /p:Version="1.0.5" /p:InformationalVersion="1.0.5.${{ github.run_number }}" --configuration Release
+        run: dotnet build ./src /p:Version="1.1.0" /p:InformationalVersion="1.1.0.${{ github.run_number }}" --configuration Release
 
       - name: dotnet publish
-        run: dotnet publish ./src /p:Version="1.0.5" /p:InformationalVersion="1.0.5.${{ github.run_number }}" -c Release -o ${{env.DOTNET_ROOT}}/myapp
+        run: dotnet publish ./src /p:Version="1.1.0" /p:InformationalVersion="1.1.0.${{ github.run_number }}" -c Release -o ${{env.DOTNET_ROOT}}/myapp
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
@@ -45,6 +45,7 @@ jobs:
         env:
           ComputerVision.SubscriptionKey: ${{ secrets.ComputerVisionSubscriptionKey }}
           ComputerVision.Endpoint: ${{ secrets.ComputerVisionEndpoint }}
+          Sentry.Dsn: ${{ secrets.SentryDsn }}
 
       - name: Deploy to Azure Web App
         id: deploy-to-webapp

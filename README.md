@@ -16,10 +16,6 @@ Some of the paid services has been put behind Admin user role protection to keep
 
 * Quicker build time. (Don't rebuild on publish.)
 * Better readme :D
-* Add ref from shared to serverless for code reuse
 * Add Postgres database
 * Maybe some AI. 
 * Whatever crosses my mind.
-* Add monorepo like features to both github actions and azure pipelines
-* Maybe add some SonarQube and other quality tools to keep this repository crisp!
-* Maybe blogpost / youtube video covering this repository for others to learn from.
