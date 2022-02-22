@@ -22,19 +22,35 @@
           Style="width:300px;height:300px;">
 </Transfer>
 
+<Divider Orientation="left">Small Size</Divider>
+
+<AntList Bordered DataSource="@ScrumTeamMembers">
+    <ChildContent Context="item">
+        <ListItem>
+            <span><Text Code>@item.Name</Text></span>"Timer for user"
+        </ListItem>
+    </ChildContent>
+</AntList>
+
+
 
 @code {
     private List<TransferItem> dataSource = new List<TransferItem>();
     private List<string> targetKeys = new List<string>();
     private string[] selectedKeys = Array.Empty<string>();
     private string[] titles = { "Team", "Attendee" };
-    private bool Disabled = false;     
+    private bool Disabled = false;
+    private List<ScrumTeamMember> ScrumTeamMembers = new();
 
     protected override async Task OnInitializedAsync()
     {
         try
         {
             var teamMembers = await LocalClient.HttpClient.GetFromJsonAsync<ScrumTeamMember[]>("api/scrum/");
+
+            if (teamMembers == null) return;
+
+            ScrumTeamMembers = teamMembers.ToList();
 
             targetKeys.AddRange(teamMembers.Select(x => x.Uid.ToString()));
 
