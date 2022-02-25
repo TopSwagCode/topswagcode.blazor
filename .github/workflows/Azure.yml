@@ -30,13 +30,7 @@ jobs:
         run: dotnet build ./src /p:Version="1.1.0" /p:InformationalVersion="1.1.0.${{ github.run_number }}" --configuration Release
 
       - name: dotnet publish
-        run: dotnet publish ./src /p:Version="1.1.0" /p:InformationalVersion="1.1.0.${{ github.run_number }}" -c Release -o ${{env.DOTNET_ROOT}}/myapp
-
-      - name: Upload artifact for deployment job
-        uses: actions/upload-artifact@v2
-        with:
-          name: .net-app
-          path: ${{env.DOTNET_ROOT}}/myapp
+        run: dotnet publish ./src -c Release -o ${{env.DOTNET_ROOT}}/myapp --no-build
 
       - name: Variable substitution
         uses: microsoft/variable-substitution@v1 

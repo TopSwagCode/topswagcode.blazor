@@ -95,10 +95,10 @@ namespace TopSwagCode.Blazor.Server.Controllers
         [HttpGet("{imgGuid}")]
         public async Task<ActionResult> GetImageByGuid(string imgGuid)
         {
-            var image = System.IO.File.OpenRead($"{imgGuid}.jpg");
-            return File(image, "image/jpeg");
+            var filepath = $"{imgGuid}.jpg";
+            var image = System.IO.File.OpenRead(filepath);
 
-            return Ok();
+            return File(image, "image/jpeg");
         }
 
         [HttpPost("test")]
