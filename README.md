@@ -15,7 +15,7 @@ Some of the paid services has been put behind Admin user role protection to keep
 # Roadmap
 
 * Quicker build time. (Don't rebuild on publish.)
-* Better readme :D
+* Better readme :D We are getting there!
 * Add Postgres database
 * Maybe some AI. 
 * Whatever crosses my mind.
