@@ -95,7 +95,7 @@ namespace TopSwagCode.Blazor.Server.Controllers
         [HttpGet("{imgGuid}")]
         public async Task<ActionResult> GetImageByGuid(string imgGuid)
         {
-            var filepath = $"{imgGuid}.jpg";
+            string filepath = Path.GetFullPath(System.IO.Path.Combine("~/", $"{imgGuid}.jpg"));
             var image = System.IO.File.OpenRead(filepath);
 
             return File(image, "image/jpeg");
