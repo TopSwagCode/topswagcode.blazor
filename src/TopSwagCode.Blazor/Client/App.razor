@@ -9,7 +9,10 @@
                     }
                     else
                     {
-                        <p role="alert">You are not authorized to access this resource.</p>
+                       <Result Status="403"
+                            Title="403"
+                            SubTitle="Sorry, you are not authorized to access this page."
+                            Extra="extra" />
                     }
                 </NotAuthorized>
             </AuthorizeRouteView>
@@ -18,10 +21,18 @@
         <NotFound>
             <PageTitle>Not found</PageTitle>
             <LayoutView Layout="@typeof(MainLayout)">
-                <p role="alert">Sorry, there's nothing at this address.</p>
+                <Result Status="404"
+                    Title="404"
+                    SubTitle="Sorry, the page you visited does not exist."
+                    Extra="extra" />
             </LayoutView>
         </NotFound>
     </Router>
 </CascadingAuthenticationState>
 
 <AntContainer />
+
+@code
+{
+    RenderFragment extra =@<Button Type="primary">Back Home</Button>;
+}

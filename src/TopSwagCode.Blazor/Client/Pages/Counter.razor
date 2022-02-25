@@ -11,6 +11,7 @@
 
 <Button OnClick="DecrementCount" Type="@ButtonType.Primary" Shape="@ButtonShape.Circle" Icon="@IconType.Outline.MinusCircle" />
 
+<Button OnClick="BreakCounter" Type="@ButtonType.Primary" Shape="@ButtonShape.Circle" Icon="@IconType.Outline.MinusCircle" />
 
 @code {
     private int currentCount = 0;
@@ -23,5 +24,10 @@
     private void DecrementCount()
     {
         currentCount--;
+    }
+
+    private void BreakCounter()
+    {
+        throw new Exception("Ohhh noes. It iz brokez");
     }
 }
