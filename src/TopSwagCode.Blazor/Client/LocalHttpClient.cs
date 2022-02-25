@@ -12,7 +12,7 @@
 
     public class WasmVersionService : IVersionService
     {
-        public string Version { get; set; }
+        public string Version { get; set; } = null!;
 
         public string GetVersion() => Version;
     }

@@ -18,7 +18,7 @@ namespace TopSwagCode.Blazor.Server.Controllers
         }
 
         [HttpGet]
-        public async Task<AdminWelcomeMessage> Get()
+        public AdminWelcomeMessage Get()
         {
             var childSpan = _sentryHub.GetSpan()?.StartChild("additional-work");
             try

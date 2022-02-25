@@ -20,13 +20,10 @@ namespace TopSwagCode.Blazor.Client
 
             var claimsIdentity = (ClaimsIdentity)user.Identity;
 
-            
-
-            if (account != null)
+            if (account != null && claimsIdentity != null)
             {
                 foreach (var kvp in account.AdditionalProperties)
                 {
-                    var name = kvp.Key;
                     var value = kvp.Value;
                     if (value != null &&
                         (value is JsonElement element && element.ValueKind == JsonValueKind.Array))
