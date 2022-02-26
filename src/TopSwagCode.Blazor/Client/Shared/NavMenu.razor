@@ -10,7 +10,8 @@
             Visible="@visible" 
             Placement="@placement" 
             Closable="false"
-            OnClose="_ => close()">
+            OnClose="_ => close()"
+            Height="278">
             <MenuItem RouterLink="/" Key="1">Home</MenuItem>
             <MenuItem RouterLink="/identicon" Key="2">Identicon</MenuItem>
             <MenuItem RouterLink="/counter" Key="3">Counter</MenuItem>
@@ -28,6 +29,7 @@
                     <MenuItem RouterLink="/face-recognition" Key="9">Face Recognition</MenuItem>
                     <MenuItem RouterLink="/serverless" Key="10">Serverless</MenuItem>
                     <MenuItem RouterLink="/admin" Key="11">Admin</MenuItem>
+                    <MenuItem RouterLink="/scrum" Key="12">Scrum</MenuItem>
                 </Authorized>
             </AuthorizeView>
         </Drawer>
@@ -52,6 +54,7 @@
                 <MenuItem RouterLink="/face-recognition" Key="9">Face Recognition</MenuItem>
                 <MenuItem RouterLink="/serverless" Key="10">Serverless</MenuItem>
                 <MenuItem RouterLink="/admin" Key="11">Admin</MenuItem>
+                <MenuItem RouterLink="/scrum" Key="12">Scrum</MenuItem>
             </Authorized>
         </AuthorizeView>
         
