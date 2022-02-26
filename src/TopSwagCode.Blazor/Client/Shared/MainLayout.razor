@@ -1,4 +1,5 @@
 ﻿@inherits LayoutComponentBase
+@inject NavigationManager UriHelper
 @inject IVersionService VersionService
 
 <Layout style="min-height: 100vh;" Class="layout page">
@@ -9,15 +10,18 @@
     <Content Style="padding: 0 50px; overflow-wrap: break-word;">
         <BadgeRibbon Text="@("Version: " + version.ToString())">
             <div class="site-layout-content">
-                <ChildContent>
-                    @Body
-                </ChildContent>
-                <ErrorBoundary>
+                <ErrorBoundary @ref="@errorBoundary">
+                    <ChildContent>
+                        @Body
+                     </ChildContent>
                     <ErrorContent>
                         <Result Status="500"
                             Title="500"
-                            SubTitle="Sorry, something went wrong."
-                            Extra="extra" />
+                            SubTitle="Sorry, something went wrong.">
+                            <Extra>
+                                <HomeButton Text="Hello world" />
+                            </Extra>
+                        </Result>
                     </ErrorContent>    
                 </ErrorBoundary>
             </div>
@@ -38,6 +42,9 @@
         version = VersionService.GetVersion();
     }  
 
-    RenderFragment extra =@<Button Type="primary">Back Home</Button>;
-
+    private ErrorBoundary errorBoundary;
+    protected override void OnParametersSet()
+    {
+        errorBoundary?.Recover();
+    }
 }

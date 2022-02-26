@@ -1,0 +1,13 @@
+﻿@inject NavigationManager UriHelper
+
+<Button OnClick="Navigate" Type="primary">@(Text ?? "Home")</Button>
+
+@code {
+    [Parameter]
+    public string? Text { get; set; }
+
+    void Navigate()
+    {
+        UriHelper.NavigateTo("/");
+    }
+}
