@@ -22,7 +22,7 @@
           Style="width:300px;height:300px;">
 </Transfer>
 
-<Divider Orientation="left">Small Size</Divider>
+<Divider Orientation="left">Entire scrum team</Divider>
 
 <AntList Bordered DataSource="@ScrumTeamMembers">
     <ChildContent Context="item">
@@ -31,6 +31,19 @@
         </ListItem>
     </ChildContent>
 </AntList>
+
+<Divider Orientation="left">Timer test</Divider>
+
+<Button OnClick="(async () => { StopSwatch(); })">Start</Button>
+
+<Button>Pause</Button>
+
+<Button>Resume</Button>
+
+<Button>Stop</Button>
+
+<Text>@stopwatchValue</Text>
+
 
 
 
@@ -41,6 +54,8 @@
     private string[] titles = { "Team", "Attendee" };
     private bool Disabled = false;
     private List<ScrumTeamMember> ScrumTeamMembers = new();
+
+    private string timerText = "";
 
     protected override async Task OnInitializedAsync()
     {
@@ -70,6 +85,27 @@
 
         StateHasChanged();
         base.OnInitialized();
+    }
+
+    TimeSpan stopwatchValue = new TimeSpan();
+    bool isStopwatchRunning = false;
+
+    async Task StopSwatch()
+    {
+        isStopwatchRunning = true;
+        Console.WriteLine("HelloHello");
+
+        while (isStopwatchRunning)
+        {
+            await Task.Delay(1000);
+
+            if (isStopwatchRunning)
+            {
+                Console.WriteLine("NoNoNo");
+                stopwatchValue = stopwatchValue.Add(new TimeSpan(0, 0, 1));
+                StateHasChanged();
+            }
+        }
     }
 
     private OneOf.OneOf<string, RenderFragment> Render(TransferItem item)
