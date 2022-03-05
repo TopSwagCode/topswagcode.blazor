@@ -16,6 +16,4 @@ Some of the paid services has been put behind Admin user role protection to keep
 
 * Menu drawer. Only open as much as needed. (Logged in, Admin, Normal user)
 * Better readme :D We are getting there!
-* Add Postgres database
 * Maybe some AI. 
-* Whatever crosses my mind.
